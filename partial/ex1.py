@@ -43,7 +43,7 @@ for i, j in stari_ascunse:
     vecini = [
         (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)  # sus, jos, stânga, dreapta
     ]
-    vecini_valizi = [(x, y) for x, y in vecini if 0 <= x < 10 and 0 <= y < 10] + [(i,j)]
+    vecini_valizi = [(x, y) for (x, y) in vecini if 0 <= x < 10 and 0 <= y < 10] + [(i,j)]
     for l,k in stari_ascunse:
         if (l,k) not in vecini_valizi:
             transitions[i*10+j][l*10+k] = 0
@@ -56,7 +56,7 @@ for i, j in stari_ascunse:
         else:
             transitions[i*10+j][l*10+k] = 0.6/(len(vecini_valizi)-1)
 
-print((transitions[11]))
+print(stari_ascunse)
 # Matrice de emisie
 emissions = np.zeros((numar_stari, len(culori)))
 for i, j in stari_ascunse:
