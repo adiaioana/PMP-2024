@@ -38,20 +38,19 @@ def make_experiment_prior(experiment):
     beta_prior = 1  # Parametrul de rată pentru prior
 
     # Parametrii posteriori
-    alpha_posterior = alpha_prior + no_s  # Actualizează alpha
-    beta_posterior = beta_prior + no_t  # Actualizează beta
 
-    # Eșantionare din distribuția posterior Gamma
-    posterior_samples = np.random.gamma(alpha_posterior, 1 / beta_posterior, 10000)
+
+    # Eșantionare din distribuția prior Gamma
+    prior_samples = np.random.gamma(alpha_prior, 1 / beta_prior, 10000)
 
     # Folosim arviz pentru a plota distribuția posterior și intervalul HDI de 94%
-    az.plot_posterior(posterior_samples, hdi_prob=0.94)
-    plt.title("Distribuția Posterior a Rată Steme (λ)")
+    az.plot_posterior(prior_samples, hdi_prob=0.94)
+    plt.title("Distribuția Prior a Rată Steme (λ)")
     plt.xlabel("Rata Steme λ (obtinute in cele 10 aruncari)")
     plt.show()
 
     # Afișăm intervalul HDI de 94%
-    hdi_bounds = az.hdi(posterior_samples, hdi_prob=0.94)
+    hdi_bounds = az.hdi(prior_samples, hdi_prob=0.94)
     print(f"94% HDI pentru λ: [{hdi_bounds[0]:.2f}, {hdi_bounds[1]:.2f}]")
 
 
