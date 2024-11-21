@@ -43,19 +43,18 @@ for i, j in stari_ascunse:
     vecini = [
         (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)  # sus, jos, stânga, dreapta
     ]
-    vecini_valizi = [stare_to_idx[(x, y)] for x, y in vecini if 0 <= x < 10 and 0 <= y < 10] + [stare_to_idx[(i,j)]]
-
+    vecini_valizi = [(x, y) for x, y in vecini if 0 <= x < 10 and 0 <= y < 10] + [(i,j)]
     for l,k in stari_ascunse:
-        if stare_to_idx[(l,k)] not in vecini_valizi:
-            transitions[stare_to_idx[(i,j)]][stare_to_idx[(l,k)]] = 0
+        if (l,k) not in vecini_valizi:
+            transitions[i*10+j][l*10+k] = 0
             continue
-        if (j==0 and stare_to_idx[(l,k)] is stare_to_idx[(i,j)]-1) or (j>0 and (l,k) is (i,j-1)):
-            transitions[stare_to_idx[(i,j)]][stare_to_idx[(l,k)]] = 0.4
+        if (l,k) is (i,j-1):
+            transitions[i*10+j][l*10+k] = 0.4
             continue
-        if not (j==0 and stare_to_idx[(l,k)] is stare_to_idx[(i,j)]-1) or (j>0 and (l,k) is (i,j-1)):
-            transitions[stare_to_idx[(i,j)]][stare_to_idx[(l,k)]] = 1/len(vecini_valizi)
+        if (i,j-1) not in vecini_valizi:
+            transitions[i*10+j][l*10+k] = 1.0/len(vecini_valizi)
         else:
-            transitions[stare_to_idx[(i,j)]][stare_to_idx[(l,k)]] = 0.6/(len(vecini_valizi)-1)
+            transitions[i*10+j][l*10+k] = 0.6/(len(vecini_valizi)-1)
 
 print((transitions[11]))
 # Matrice de emisie
