@@ -56,7 +56,6 @@ for i, j in stari_ascunse:
         else:
             transitions[i*10+j][l*10+k] = 0.6/(len(vecini_valizi)-1)
 
-print(stari_ascunse)
 # Matrice de emisie
 emissions = np.zeros((numar_stari, len(culori)))
 for i, j in stari_ascunse:
